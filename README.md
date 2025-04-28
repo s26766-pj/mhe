@@ -6,7 +6,9 @@ Problem polega na tym, aby zdecydować, czy dany zbiór liczb całkowitych możn
 Przykład:
 
 Zbiór: **S = {7, 3, 2, 1, 5, 4, 8}**
+
 Suma liczb w zbiorze **S** = 30
+
 Docelowa suma w każdej partycji **30 / 3 = 10**
 
 Rozwiązanie:
