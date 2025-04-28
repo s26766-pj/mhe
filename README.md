@@ -1,8 +1,15 @@
 3-partition problem, [wikipedia](https://en.wikipedia.org/wiki/3-partition_problem)
 
-The 3-partition problem is a strongly NP-complete problem in computer science. The problem is to decide whether a given multiset of integers can be partitioned into triplets that all have the same sum. More precisely:
+Problem 3-partycji jest problemem NP-zupełnym w informatyce.
+Problem polega na tym, aby zdecydować, czy dany zbiór liczb całkowitych można podzielić na trzy partycje "wiadereka", tak aby w każdym wiaderku była taka sama suma?
 
-Input: a multiset S containing n positive integer elements.
-Conditions: S must be partitionable into m triplets, S1, S2, …, Sm, where n = 3m. These triplets partition S in the sense that they are disjoint and they cover S. The target value T is computed by taking the sum of all elements in S, then divided by m.
-Output: whether or not there exists a partition of S such that, for all triplets, the sum of the elements in each triplet equals T.
-The 3-partition problem remains strongly NP-complete under the restriction that every integer in S is strictly between T/4 and T/2.
+Przykład:
+
+Zbiór: **S = {7, 3, 2, 1, 5, 4, 8}**
+Suma liczb w zbiorze **S** = 30
+Docelowa suma w każdej partycji **30 / 3 = 10**
+
+Rozwiązanie:
+Partycja 1: {7, 3} (Suma = 10)
+Partycja 2: {5, 4, 1} (Suma = 10)
+Partycja 3: {8, 2} (Suma = 10)
