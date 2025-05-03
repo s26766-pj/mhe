@@ -3,23 +3,58 @@
 3-partition problem, [wikipedia](https://en.wikipedia.org/wiki/3-partition_problem)
 
 Problem 3-partycji jest problemem NP-zupełnym w informatyce.
-Problem polega na tym, aby zdecydować, czy dany zbiór liczb całkowitych można podzielić na trzy partycje "wiadereka", tak aby w każdym wiaderku była taka sama suma?
+Problem polega na tym, aby odpowiedzieć na następujące pytanie:
 
-Przykład:
+***Czy dany multizbiór liczb całkowitych można podzielić na "trojaczki", które mają taką samą sumę?***
 
-Zbiór: **S = {7, 3, 2, 1, 5, 4, 8}**
+> [!NOTE]
+>- multizbiór różni się od zbioru tym, że w multizbiorze elementy mogą się powtarzać, a w zwykłym zbiorze nie
+>- <code>trojaczki</code> - to trzy elementowe multizbiory
+>- <code>n</code> - oznacza liczbę elementów w danym multizbiorze
+>- <code>m</code> - oznacza liczbę "trojaczków", "koszyczków", "grup"
+>- <code>T</code> - oznacza sumę wartości wszystkich elementów w multizbiorze
+>- <code>S</code> - oznacza dany multizbiór
+>- <code>S1, S2, …, Sm</code> - oznaczają "trojaczki", "pod-multizbiory"
 
-Suma liczb w zbiorze **S = 30**
+> [!IMPORTANT]
+>- <code>n</code> jest podzielne przez 3 oraz <code>n = 3m</code>
+>- jeżeli <code>n</code> nie jest podzielne przez 3 to odpowiedź na pytanie przmi "nie"
+>- elementy multizbioru to dodatnie liczby całkowite
+>- <code>S1, S2, …, Sm</code> to multizbiory rozłączne pokrywające <code>S</code>
 
-Docelowa suma w każdej partycji **30 / 3 = 10**
+<h1>Przykłady:</h1>
+<h2>Przykład 1)</h2>
 
-Rozwiązanie:
+> [!TIP]
+>- Dany multizbiór: **S = {20, 23, 25, 30, 49, 45, 27, 30, 30, 40, 22, 19}**
+>- Liczba elementów: **n = 12**
+>- Liczba "trojaczków": **m = n/3 = 4**
+>- Cel: **T = sum(S)/m = 360/4 = 90**
+>- Odpowiedź: Tak
+>- Pierwszy trojaczek: **S1 = {20, 25, 45}**
+>- Drugi trojaczek: **S2 = {23, 27, 40}**
+>- Trzeci trojaczek: **S3 = {49, 22, 19}**
+>- Czwarty trojaczek: **S4 = {30, 30, 30}**
 
-Partycja 1: {7, 3} (Suma = 10)
+<h2>Przykład 2)</h2>
+> [!TIP]
+>- Dany multizbiór: **S = {1, 2, 5, 6, 7, 9}**
+>- Liczba elementów: **n = 6**
+>- Liczba "trojaczków": **m = n/3 = 2**
+>- Cel: **T = sum(S)/m = 30/2 = 15**
+>- Odpowiedź: Tak
+>- Pierwszy trojaczek: **S1 = {1, 5, 9}**
+>- Drugi trojaczek: **S2 = {2, 6, 7}**
 
-Partycja 2: {5, 4, 1} (Suma = 10)
-
-Partycja 3: {8, 2} (Suma = 10)
+<h2>Przykład 3)</h2>
+> [!TIP]
+>- Dany multizbiór: **S = {4, 5, 5, 5, 5, 6}**
+>- Liczba elementów: **n = 6**
+>- Liczba "trojaczków": **m = n/3 = 2**
+>- Cel: **T = sum(S)/m = 30/2 = 15**
+>- Odpowiedź: Tak
+>- Pierwszy trojaczek: **S1 = {4, 5, 6}**
+>- Drugi trojaczek: **S2 = {5, 5, 5}**
 
 <h1>Komendy uruchamiające algorytmy:</h1>
 
