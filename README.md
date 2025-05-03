@@ -89,6 +89,9 @@ Problem polega na tym, aby odpowiedzieć na następujące pytanie:
 
 <code>python -m cli brute -i data/p1.txt</code>
 
+> [!WARNING]
+>- odradzam uruchamiania brute force z plikiem p5.txt
+
 <a name="usage2"></a>
 ## Algorytm wspinaczkowy klasyczny z deterministycznym wyborem najlepszego sąsiada punktu roboczego:
 
