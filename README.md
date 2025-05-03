@@ -77,29 +77,34 @@ Problem polega na tym, aby odpowiedzieć na następujące pytanie:
 >- Pierwszy trojaczek: **S1 = {4, 5, 6}**
 >- Drugi trojaczek: **S2 = {5, 5, 5}**
 
-<h1>Komendy uruchamiające algorytmy:</h1>
+<a name="usage"></a>
+## Komendy uruchamiające algorytmy:
 
 > [!NOTE]
 > - parametr <code>-m cli <nazwa_algorytmu></code> ustala wybranie algorytmu
 > - parametr <code>-i <nazwa_pliku_tekstowego></code> ustala wybranie pliku tekstowego z elementami multizbioru
 
-Algorytm pełnego przeglądu:
+<a name="usage1"></a>
+## Algorytm pełnego przeglądu:
 
 <code>python -m cli brute -i data/p1.txt</code>
 
-Algorytm wspinaczkowy klasyczny z deterministycznym wyborem najlepszego sąsiada punktu roboczego:
+<a name="usage2"></a>
+## Algorytm wspinaczkowy klasyczny z deterministycznym wyborem najlepszego sąsiada punktu roboczego:
 
 <code>python -m cli hc_det -i data/p1.txt --time-limit-seconds 5</code>
 > [!NOTE]
 > - parametr <code>--time-limit-seconds <int></code> ustala czasowe ograniczenie działania algorytmu
 
-Algorytm wspinaczkowy z losowym wyborem sąsiada spośród otoczenia punktu roboczego:
+<a name="usage3"></a>
+## Algorytm wspinaczkowy z losowym wyborem sąsiada spośród otoczenia punktu roboczego:
 
 <code>python -m cli hc_rand -i data/p1.txt --time-limit-seconds 5</code>
 > [!NOTE]
 > - parametr <code>--time-limit-seconds <int></code> ustala czasowe ograniczenie działania algorytmu
 
-Algorytm tabu:
+<a name="usage4"></a>
+## Algorytm tabu:
 
 <code>python -m cli tabu -i data/p1.txt --tabu-size 0 --time-limit-seconds 5</code>
 > [!NOTE]
