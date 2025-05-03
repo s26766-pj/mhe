@@ -1,4 +1,19 @@
-<h1>Opis problemu:</h1>
+<h2>Spis treści:</h2>
+
+- [ Opis problemu ](#desc)
+- [ Przykłady: ](#examples)
+  - [ przykład 1 ](#example1)
+  - [ przykład 2 ](#example2)
+  - [ przykład 3 ](#example3)
+- [ Komendy wywołujące: ](#usage)
+  - [ algorytm pełnego przeglądu ](#usage1)
+  - [ algorytm wspinaczkowy klasyczny ](#usage2)
+  - [ algorytm wspinaczkowy z losowym wyborem sąsiada ](#usage3)
+  - [ algorytm tabu ](#usage4)
+  - [ algorytm symulowanego wyżarzania ](#usage5)
+
+<a name="desc"></a>
+## Opis problemu:
 
 3-partition problem, [wikipedia](https://en.wikipedia.org/wiki/3-partition_problem)
 
@@ -22,7 +37,9 @@ Problem polega na tym, aby odpowiedzieć na następujące pytanie:
 >- elementy multizbioru to dodatnie liczby całkowite
 >- <code>S1, S2, …, Sm</code> to multizbiory rozłączne pokrywające <code>S</code>
 
-<h1>Przykłady:</h1>
+<a name="examples"></a>
+## Przykłady:
+<a name="example1"></a>
 <h2>Przykład 1)</h2>
 
 > [!TIP]
@@ -36,6 +53,7 @@ Problem polega na tym, aby odpowiedzieć na następujące pytanie:
 >- Trzeci trojaczek: **S3 = {49, 22, 19}**
 >- Czwarty trojaczek: **S4 = {30, 30, 30}**
 
+<a name="example2"></a>
 <h2>Przykład 2)</h2>
 
 > [!TIP]
@@ -47,6 +65,7 @@ Problem polega na tym, aby odpowiedzieć na następujące pytanie:
 >- Pierwszy trojaczek: **S1 = {1, 5, 9}**
 >- Drugi trojaczek: **S2 = {2, 6, 7}**
 
+<a name="example3"></a>
 <h2>Przykład 3)</h2>
 
 > [!TIP]
@@ -60,14 +79,49 @@ Problem polega na tym, aby odpowiedzieć na następujące pytanie:
 
 <h1>Komendy uruchamiające algorytmy:</h1>
 
+> [!NOTE]
+> - parametr <code>-m cli <nazwa_algorytmu></code> ustala wybranie algorytmu
+> - parametr <code>-i <nazwa_pliku_tekstowego></code> ustala wybranie pliku tekstowego z elementami multizbioru
+
 Algorytm pełnego przeglądu:
 
-<code>python -m cli brute -i data/input.txt</code>
+<code>python -m cli brute -i data/p1.txt</code>
 
 Algorytm wspinaczkowy klasyczny z deterministycznym wyborem najlepszego sąsiada punktu roboczego:
 
-<code>python -m cli hc_det -i data/input.txt --time-limit-seconds 5</code>
+<code>python -m cli hc_det -i data/p1.txt --time-limit-seconds 5</code>
+> [!NOTE]
+> - parametr <code>--time-limit-seconds <int></code> ustala czasowe ograniczenie działania algorytmu
 
 Algorytm wspinaczkowy z losowym wyborem sąsiada spośród otoczenia punktu roboczego:
 
-<code>python -m cli hc_rand -i data/input.txt --time-limit-seconds 5</code>
+<code>python -m cli hc_rand -i data/p1.txt --time-limit-seconds 5</code>
+> [!NOTE]
+> - parametr <code>--time-limit-seconds <int></code> ustala czasowe ograniczenie działania algorytmu
+
+Algorytm tabu:
+
+<code>python -m cli tabu -i data/p1.txt --tabu-size 0 --time-limit-seconds 5</code>
+> [!NOTE]
+> - parametr <code>--time-limit-seconds <int></code> ustala czasowe ograniczenie działania algorytmu
+> - parametr <code>--tabu-size <int></code> ustala ograniczenie wielkości tabu, gdy podamy 0 tabu jest nieograniczone
+
+<a name="usage5"></a>
+## Algorytm symulowanego wyżarzania:
+
+<code>python -m cli sa -i data/p1.txt</code>
+
+<code>python -m cli sa -i data/p1.txt --schedule exponential --alpha 0.97 --sigma 0.5 --time-limit-seconds 10</code>
+
+<code>python -m cli sa -i data/p1.txt --schedule logarithmic --c 2.0 --time-limit-seconds 60</code>
+
+<code>python -m cli sa -i data/p1.txt --schedule linear --initial-temp 100.0 --alpha 0.5 --sigma 0.8 --time-limit-seconds 120</code>
+> [!NOTE]
+> - parametr <code>--schedule <nazwa_schematu_temperatury></code> ustala schemat wyżarzania, może być liniowy, wykładniczy lub logarytmiczny (<code>linear, exponential, logarithmic</code>)
+> - parametr <code>--alpha <float></code> w schematach liniowym i wykładniczym ustala tempo spadku temperatury
+> - parametr <code>--c <float></code> w schemacie logarytmicznym ustala tempo spadku temperatury
+> - parametr <code>--initial_temp <float></code> ustala temperaturę początkową
+> - parametr <code>--sigma <float></code> ustala odchylenie standardowe wyborze sąsiada
+> - parametr <code>--time-limit-seconds <int></code> ustala czasowe ograniczenie działania algorytmu
+
+

@@ -2,28 +2,40 @@ import random
 from typing import List
 
 
-def all_neighbors(labels: List[int], k: int = 3) -> List[List[int]]:
+def swap_neighbors(labels: List[int]) -> List[List[int]]:
+    """
+    Zwraca listę wszystkich sąsiadów powstałych przez zamianę
+    etykiet dwóch różnych pozycji i<j.
+    """
     n = len(labels)
     neighbors = []
-
-    for i in range(n):
-        for new_part in range(k):
-            if labels[i] != new_part:
-                nb = labels.copy()
-                nb[i] = new_part
-                neighbors.append(nb)
-
     for i in range(n):
         for j in range(i+1, n):
             if labels[i] != labels[j]:
                 nb = labels.copy()
                 nb[i], nb[j] = nb[j], nb[i]
                 neighbors.append(nb)
-
     return neighbors
 
 
-def random_neighbors(labels: List[int], k: int = 3, m: int = 100) -> List[List[int]]:
-    all_nb = all_neighbors(labels, k)
-    random.shuffle(all_nb)
-    return all_nb[:m]
+def random_normal_neighbor(labels: List[int], sigma: float, max_tries: int = 1000) -> List[int]:
+    """
+    Generuje sąsiada przez swap dwóch indeksów wybranych z rozkładu normalnego
+    o średniej w połowie długości listy i odchyleniu standardowym sigma.
+    Zapewnia zachowanie zbalansowania.
+    """
+    n = len(labels)
+    for _ in range(max_tries):
+        mean = (n - 1) / 2
+        i = int(random.gauss(mean, sigma))
+        j = int(random.gauss(mean, sigma))
+        if not (0 <= i < n and 0 <= j < n and i < j and labels[i] != labels[j]):
+            continue
+        neighbor = labels.copy()
+        neighbor[i], neighbor[j] = neighbor[j], neighbor[i]
+        return neighbor
+
+    i, j = random.sample([idx for idx in range(n)], 2)
+    neighbor = labels.copy()
+    neighbor[i], neighbor[j] = neighbor[j], neighbor[i]
+    return neighbor

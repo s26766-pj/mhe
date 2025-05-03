@@ -2,5 +2,15 @@ import random
 from typing import List
 
 
-def random_assignment(n: int, k: int = 3) -> List[int]:
-    return [random.randrange(k) for _ in range(n)]
+def random_balanced_assignment(n: int, m: int) -> List[int]:
+    """
+    Zwraca losowy wektor etykiet długości n,
+    taki, że każda z m grup ma dokładnie n/m elementów.
+    """
+    group_size = n // m
+    labels = []
+    for grp in range(m):
+        labels += [grp] * group_size
+    random.shuffle(labels)
+    return labels
+

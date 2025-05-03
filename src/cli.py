@@ -3,9 +3,8 @@ from io_utils import read_instance
 from model import ThreePartitionProblem
 from enumerator import brute_force_search
 from hill_climb import hill_climbing_deterministic, hill_climbing_stochastic
-# from tabu_search import tabu_search
-# from simulated_annealing import simulated_annealing
-# from genetic import genetic_algorithm
+from simulated_annealing import simulated_annealing
+from tabu_search import tabu_search
 
 
 def main():
@@ -18,14 +17,16 @@ def main():
         required=True
     )
 
+    # Brute-force
     brute_parser = subparsers.add_parser(
-        "brute", help="Algorytm pełnego przeglądu"
+        "brute", help="Pełny przegląd wszystkich m^n przydziałów"
     )
     brute_parser.add_argument(
         "-i", "--input", required=False,
         help="Ścieżka do pliku z instancją (domyślnie stdin)"
     )
 
+    # Hill-climbing deterministyczny
     hc_det_parser = subparsers.add_parser(
         "hc_det", help="Hill-climbing deterministyczny"
     )
@@ -35,9 +36,10 @@ def main():
     )
     hc_det_parser.add_argument(
         "--time-limit-seconds", type=int, default=60,
-        help="Maksymalny czas działania algorytmu w sekundach"
+        help="Maksymalny czas działania algorytmu (sekundy)"
     )
 
+    # Hill-climbing stochastyczny
     hc_rand_parser = subparsers.add_parser(
         "hc_rand", help="Hill-climbing stochastyczny"
     )
@@ -47,31 +49,65 @@ def main():
     )
     hc_rand_parser.add_argument(
         "--time-limit-seconds", type=int, default=60,
-        help="Maksymalny czas działania algorytmu w sekundach"
+        help="Maksymalny czas działania algorytmu (sekundy)"
     )
 
+    # Tabu Search
     tabu_parser = subparsers.add_parser(
         "tabu", help="Algorytm Tabu Search"
     )
-    tabu_parser.add_argument("-i", "--input", required=False)
-    tabu_parser.add_argument("--tabu-size", type=int, default=50)
+    tabu_parser.add_argument(
+        "-i", "--input", required=False,
+        help="Plik z instancją"
+    )
+    tabu_parser.add_argument(
+        "--tabu-size", type=int, default=50,
+        help="Rozmiar listy tabu (0 lub brak limitu = nieograniczone)"
+    )
+    tabu_parser.add_argument(
+        "--time-limit-seconds", type=int, default=60,
+        help="Maksymalny czas działania algorytmu (sekundy)"
+    )
 
+    # Simulated Annealing
     sa_parser = subparsers.add_parser(
         "sa", help="Algorytm symulowanego wyżarzania"
     )
-    sa_parser.add_argument("-i", "--input", required=False)
-    sa_parser.add_argument("--schedule", choices=["linear", "exp", "log"], default="linear")
-
-    ga_parser = subparsers.add_parser(
-        "ga", help="Algorytm genetyczny"
+    sa_parser.add_argument(
+        "-i", "--input", required=False,
+        help="Plik z instancją"
     )
-    ga_parser.add_argument("-i", "--input", required=False)
-    ga_parser.add_argument("--pop-size", type=int, default=100)
-    ga_parser.add_argument("--crossover", choices=["one_point","uniform"], default="one_point")
-    ga_parser.add_argument("--mutation", choices=["swap","reassign"], default="swap")
+    sa_parser.add_argument(
+        "--schedule", choices=["linear", "exponential", "logarithmic"], default="exponential",
+        help="Typ harmonogramu chłodzenia"
+    )
+    sa_parser.add_argument(
+        "--initial-temp", type=float, default=None,
+        help="Początkowa temperatura (jeśli nie podano, używana jest total/m)"
+    )
+    sa_parser.add_argument(
+        "--sigma", type=float, default=1.0,
+        help="Odchylenie standardowe do wyboru sąsiedztwa (rozkład normalny)"
+    )
+    sa_parser.add_argument(
+        "--time-limit-seconds", type=int, default=60,
+        help="Maksymalny czas działania algorytmu (sekundy)"
+    )
+    sa_parser.add_argument(
+        "--alpha", type=float, default=None,
+        help="Parametr alpha dla harmonogramu chłodzenia (np. wykładniczy)"
+    )
+    sa_parser.add_argument(
+        "--c", type=float, default=None,
+        help="Parametr c dla harmonogramu logarytmicznego"
+    )
 
     args = parser.parse_args()
     elements = read_instance(args.input)
+    n = len(elements)
+    m = n/3
+    o = int(m**n)
+    print("Liczba możliwych przydziałów: ", o)
     problem = ThreePartitionProblem(elements)
 
     solution = None
@@ -87,29 +123,34 @@ def main():
             solution = hill_climbing_stochastic(
                 problem, time_limit_seconds=args.time_limit_seconds
             )
-        # case "tabu":
-        #     solution = tabu_search(
-        #         problem, tabu_size=args.tabu_size
-        #     )
-        # case "sa":
-        #     solution = simulated_annealing(
-        #         problem, schedule=args.schedule
-        #     )
-        # case "ga":
-        #     solution = genetic_algorithm(
-        #         problem,
-        #         population_size=args.pop_size,
-        #         crossover_method=args.crossover,
-        #         mutation_method=args.mutation
-        #     )
+        case "tabu":
+            solution = tabu_search(
+                problem,
+                tabu_size=args.tabu_size,
+                time_limit_seconds=args.time_limit_seconds
+            )
+        case "sa":
+            schedule_params = {}
+            if args.alpha is not None:
+                schedule_params['alpha'] = args.alpha
+            if args.c is not None:
+                schedule_params['c'] = args.c
+            solution = simulated_annealing(
+                problem,
+                schedule=args.schedule,
+                schedule_params=schedule_params,
+                initial_temp=args.initial_temp,
+                sigma=args.sigma,
+                time_limit_seconds=args.time_limit_seconds
+            )
         case _:
             parser.error(f"Nieznany algorytm: {args.algorithm}")
 
     partitions = solution.as_partitions()
-    print("Dane: ", elements)
-    print("Rozwiązanie:")
+    print("Multizbiór: ", elements)
+    print("Rozwiązanie (trojaczki):")
     for idx, part in enumerate(partitions, start=1):
-        print(f"   Partycja {idx} -> {part}")
+        print(f"   S{idx} = {part}, Σ(S{idx}) = {sum(part)}")
 
 
 if __name__ == "__main__":
