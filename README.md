@@ -37,6 +37,7 @@ Problem polega na tym, aby odpowiedzieć na następujące pytanie:
 >- Czwarty trojaczek: **S4 = {30, 30, 30}**
 
 <h2>Przykład 2)</h2>
+
 > [!TIP]
 >- Dany multizbiór: **S = {1, 2, 5, 6, 7, 9}**
 >- Liczba elementów: **n = 6**
@@ -47,6 +48,7 @@ Problem polega na tym, aby odpowiedzieć na następujące pytanie:
 >- Drugi trojaczek: **S2 = {2, 6, 7}**
 
 <h2>Przykład 3)</h2>
+
 > [!TIP]
 >- Dany multizbiór: **S = {4, 5, 5, 5, 5, 6}**
 >- Liczba elementów: **n = 6**
