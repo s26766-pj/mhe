@@ -3,10 +3,6 @@ from typing import List
 
 
 def swap_neighbors(labels: List[int]) -> List[List[int]]:
-    """
-    Zwraca listę wszystkich sąsiadów powstałych przez zamianę
-    etykiet dwóch różnych pozycji i<j.
-    """
     n = len(labels)
     neighbors = []
     for i in range(n):
@@ -19,11 +15,6 @@ def swap_neighbors(labels: List[int]) -> List[List[int]]:
 
 
 def random_normal_neighbor(labels: List[int], sigma: float, max_tries: int = 1000) -> List[int]:
-    """
-    Generuje sąsiada przez swap dwóch indeksów wybranych z rozkładu normalnego
-    o średniej w połowie długości listy i odchyleniu standardowym sigma.
-    Zapewnia zachowanie zbalansowania.
-    """
     n = len(labels)
     for _ in range(max_tries):
         mean = (n - 1) / 2

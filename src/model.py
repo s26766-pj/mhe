@@ -3,19 +3,15 @@ from typing import List
 
 class ThreePartitionProblem:
     def __init__(self, elements: List[int]):
-        # Walidacja: liczby muszą być dodatnimi intami
         if not all(isinstance(x, int) and x > 0 for x in elements):
             raise ValueError("Wszystkie elementy muszą być dodatnimi liczbami całkowitymi.")
 
-        self.elements = list(elements)  # zachowujemy duplikaty
+        self.elements = list(elements)
         self.n = len(self.elements)
-
-        # Warunek: liczba elementów musi być podzielna przez 3
         if self.n % 3 != 0:
             raise ValueError("Liczba elementów w multizbiorze nie jest podzielna przez trzy.")
 
         self.total = sum(self.elements)
-        # Liczba "trojaczków"
         self.m = self.n // 3
 
     @property

@@ -109,7 +109,7 @@ Problem polega na tym, aby odpowiedzieć na następujące pytanie:
 <a name="usage4"></a>
 ## Algorytm tabu:
 
-<code>python -m cli tabu -i data/p1.txt --tabu-size 0 --time-limit-seconds 5</code>
+<code>python -m cli tabu -i data/p1.txt --tabu-size 100 --time-limit-seconds 5</code>
 > [!NOTE]
 > - parametr <code>--time-limit-seconds <int></code> ustala czasowe ograniczenie działania algorytmu
 > - parametr <code>--tabu-size <int></code> ustala ograniczenie wielkości tabu, gdy podamy 0 tabu jest nieograniczone

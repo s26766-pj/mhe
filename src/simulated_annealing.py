@@ -17,17 +17,6 @@ def simulated_annealing(
     sigma: float = 1.0,
     time_limit_seconds: int = 60
 ) -> Assignment:
-    """
-    Simulated Annealing dla problemu m-partycji.
-
-    :param problem: instancja zadania
-    :param schedule: nazwa schematu temperatury ('linear','exponential','logarithmic')
-    :param schedule_params: parametry dla wybranego schematu (alpha, c)
-    :param initial_temp: początkowa temperatura (jeśli None, to sum(elements)/m)
-    :param sigma: odchylenie standardowe dla rozkładu normalnego w wyborze sąsiada
-    :param time_limit_seconds: limit czasu działania
-    :return: najlepsze znalezione Assignment
-    """
     schedule_params = schedule_params or {}
     temp_func = SCHEDULE_FUNCTIONS.get(schedule)
     if temp_func is None:

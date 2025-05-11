@@ -13,14 +13,7 @@ def tabu_search(
         tabu_size: Optional[int] = 50,
         time_limit_seconds: int = 60
 ) -> Assignment:
-    """
-    Tabu Search dla problemu m-partycji.
 
-    :param problem: instancja ThreePartitionProblem
-    :param tabu_size: rozmiar listy tabu (None lub 0 oznacza brak limitu - nieograniczone tabu)
-    :param time_limit_seconds: maksymalny czas działania algorytmu (w sekundach)
-    :return: najlepsze znalezione Assignment
-    """
     start_time = time.time()
     initial_labels = random_balanced_assignment(problem.n, problem.m)
     current_solution = Assignment(initial_labels, problem)
